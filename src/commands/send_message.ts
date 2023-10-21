@@ -17,13 +17,13 @@ import {
   InteractionResponseType,
   Routes,
 } from "discord-api-types/v10"
+import fetch from "isomorphic-unfetch"
 import { NextResponse } from "next/server"
 
 export default {
   description: "Send Message to channel",
   options: [
     {
-      type: ApplicationCommandOptionType.Channel,
       name: "channel",
       description: "Select channel you want to send message",
       required: true,
@@ -36,7 +36,6 @@ export default {
     },
   ],
   execute: async (i) => {
-    console.log("🚀 ~ file: send_message.ts:16 ~ execute: ~ i:", i.data.options)
     const options = i.data.options as APIApplicationCommandInteractionDataBasicOption[]
     if (!options || options.length < 2) {
       return new NextResponse("Invalid request", { status: 400 })

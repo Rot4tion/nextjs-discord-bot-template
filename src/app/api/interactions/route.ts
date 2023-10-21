@@ -21,8 +21,7 @@ import { NextResponse } from "next/server"
  *
  * @see https://nextjs.org/docs/app/building-your-application/rendering/edge-and-nodejs-runtimes
  */
-// export const runtime = process.env.NEXT_RUNTIME
-export const runtime = "edge"
+// export const runtime = "edge"
 
 // Your public key can be found on your application in the Developer Portal
 const DISCORD_APP_PUBLIC_KEY = process.env.DISCORD_APP_PUBLIC_KEY
