@@ -44,11 +44,15 @@ export async function POST(request: Request) {
 
   if (interaction.type === InteractionType.ApplicationCommand) {
     const { name } = interaction.data
-    const command = (await import(`../../../commands/example/${name}`)).default
+    try {
+      const command = (await import(`../../../commands/${name}`)).default
 
-    // const command = commands.find((x) => x.name == name)
-    if (command && command?.execute) {
-      return await command.execute(interaction)
+      // const command = commands.find((x) => x.name == name)
+      if (command && command?.execute) {
+        return await command.execute(interaction)
+      }
+    } catch (error) {
+      console.log("🚀 ~ file: route.ts:55 ~ POST ~ error:", error)
     }
   }
   return new NextResponse("Unknown command", { status: 400 })
