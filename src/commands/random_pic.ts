@@ -1,4 +1,3 @@
-import { url } from "inspector"
 import { CustomAPIApplicationCommand } from "@/types"
 import axios from "axios"
 import {
@@ -6,7 +5,6 @@ import {
   APIInteractionDataOptionBase,
   APIInteractionResponse,
   ApplicationCommandOptionType,
-  ApplicationCommandType,
   InteractionResponseType,
 } from "discord-api-types/v10"
 import { nanoid } from "nanoid"

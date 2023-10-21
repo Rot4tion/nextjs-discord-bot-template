@@ -1,8 +1,5 @@
-import fs from "fs"
-import path from "path"
 import { CustomAPIApplicationCommand } from "@/types"
 import {
-  APIChatInputApplicationCommandInteraction,
   APIInteractionResponse,
   InteractionResponseType,
 } from "discord-api-types/v10"

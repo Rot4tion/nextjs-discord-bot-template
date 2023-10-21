@@ -1,18 +1,7 @@
-import fs from "fs"
-import path from "path"
 import { developers } from "@/discord/client"
 import { verifyInteractionRequest } from "@/discord/verify-incoming-request"
 import { CustomAPIApplicationCommand } from "@/types"
-import {
-  APIInteractionDataOptionBase,
-  APIInteractionResponse,
-  APIMessage,
-  ApplicationCommandOptionType,
-  InteractionResponseType,
-  InteractionType,
-  MessageFlags,
-  Routes,
-} from "discord-api-types/v10"
+import { APIInteractionResponse, InteractionResponseType, InteractionType } from "discord-api-types/v10"
 import { NextResponse } from "next/server"
 
 /**

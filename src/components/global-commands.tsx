@@ -2,9 +2,9 @@ import { getGlobalCommands } from "@/discord/client"
 
 export async function GlobalCommands() {
   try {
-    const commands = await (await getGlobalCommands({ appId: process.env.DISCORD_APP_ID! })).data
+    const commands = (await getGlobalCommands({ appId: process.env.DISCORD_APP_ID! })).data
     if (commands.length <= 0) {
-      return <p className="pt-6">No commands found :(</p>
+      return <p className="pt-6">No commands found :</p>
     }
 
     return (

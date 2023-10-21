@@ -1,23 +1,13 @@
-import fs from "fs"
-import path from "path"
 import { discordClient } from "@/discord/client"
 import { CustomAPIApplicationCommand } from "@/types"
-import axios from "axios"
 import {
-  APIApplicationCommandBasicOption,
   APIApplicationCommandInteractionDataBasicOption,
-  APIApplicationCommandInteractionDataChannelOption,
-  APIApplicationCommandInteractionDataOption,
-  APIApplicationCommandInteractionDataStringOption,
-  APIChatInputApplicationCommandInteraction,
-  APIInteractionDataOptionBase,
   APIInteractionResponse,
   APIMessage,
   ApplicationCommandOptionType,
   InteractionResponseType,
   Routes,
 } from "discord-api-types/v10"
-import fetch from "isomorphic-unfetch"
 import { NextResponse } from "next/server"
 
 export default {
@@ -44,6 +34,7 @@ export default {
     await discordClient.post(Routes.channelMessages(options[0].value as string), {
       content: options[1].value as string,
     } as APIMessage)
+
     return NextResponse.json<APIInteractionResponse>({
       type: InteractionResponseType.ChannelMessageWithSource,
       data: { embeds: [{ title: "Send mesage complete!", description: "test description" }] },
