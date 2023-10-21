@@ -18,6 +18,10 @@ export type CustomAPIApplicationCommand = Omit<
   application_id?: string
   default_member_permissions?: string
   version?: string
+  /**
+   * Only developer can use this command
+   * config env.DEVELOPERS
+   */
   isDeveloperOnly?: boolean
   isPrivate?: boolean
   /**Make sure it name same with file name */
