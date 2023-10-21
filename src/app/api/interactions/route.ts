@@ -1,4 +1,6 @@
-import { commands, developers } from "@/discord/client"
+import fs from "fs"
+import path from "path"
+import { developers } from "@/discord/client"
 import { verifyInteractionRequest } from "@/discord/verify-incoming-request"
 import { CustomAPIApplicationCommand } from "@/types"
 import {
@@ -44,10 +46,15 @@ export async function POST(request: Request) {
 
   if (interaction.type === InteractionType.ApplicationCommand) {
     const { name } = interaction.data
+
     try {
       const command = (await import(`../../../commands/${name}`)).default as CustomAPIApplicationCommand
-      console.log("🚀 ~ file: route.ts:51 ~ POST ~ developers:", developers)
-      if (command.isDeveloperOnly && !developers.includes(interaction.member?.user?.id as string)) {
+
+      // Handler command permission
+      if (
+        command.isPrivate ||
+        (command.isDeveloperOnly && !developers.includes(interaction.member?.user?.id as string))
+      ) {
         return NextResponse.json<APIInteractionResponse>({
           type: InteractionResponseType.ChannelMessageWithSource,
           data: { content: `Only developer can use this command` },

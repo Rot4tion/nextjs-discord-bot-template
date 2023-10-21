@@ -2,9 +2,9 @@ import { CustomAPIApplicationCommand } from "@/types"
 import { APIInteractionResponse, InteractionResponseType } from "discord-api-types/v10"
 import { NextResponse } from "next/server"
 
-const PING = {
-  name: "ping",
+export default {
   description: "Ping pong! I'll respond with pong.",
+
   execute: async (i) => {
     return NextResponse.json<APIInteractionResponse>({
       type: InteractionResponseType.ChannelMessageWithSource,
@@ -12,5 +12,3 @@ const PING = {
     })
   },
 } as CustomAPIApplicationCommand
-
-export default PING

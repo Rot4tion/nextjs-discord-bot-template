@@ -11,13 +11,6 @@ export const discordClient = axios.create({
   headers: { Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}` },
 })
 export const developers: string[] = process.env.DEVELOPERS?.replaceAll(" ", "").split("|") || []
-/**
- * Share command metadata from a common spot to be used for both runtime
- * and registration.
- *
- * @see https://discord.com/developers/docs/interactions/application-commands#registering-a-command
- */
-export const commands: CustomAPIApplicationCommand[] = [TEST_COMMAND, INVITE, RANDOM_PIC, PING]
 
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#get-global-application-commands

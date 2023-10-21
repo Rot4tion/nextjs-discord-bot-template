@@ -11,7 +11,7 @@ import { NextResponse } from "next/server"
 
 export type CustomAPIApplicationCommand = Omit<
   APIApplicationCommand,
-  "id" | "type" | "application_id" | "default_member_permissions" | "version"
+  "id" | "type" | "application_id" | "default_member_permissions" | "version" | "name"
 > & {
   id?: Snowflake
   type?: number
@@ -20,11 +20,11 @@ export type CustomAPIApplicationCommand = Omit<
   version?: string
   /**
    * Only developer can use this command
-   * config env.DEVELOPERS
+   * config env DEVELOPERS
    */
   isDeveloperOnly?: boolean
+  /** If `true` your command will not be registered and used */
   isPrivate?: boolean
-  /**Make sure it name same with file name */
   name?: string
   execute?: (interaction: APIChatInputApplicationCommandInteraction) => Promise<NextResponse<APIInteractionResponse>>
 }

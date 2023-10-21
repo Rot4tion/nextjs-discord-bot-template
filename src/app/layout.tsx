@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "NextBot — Next.js Discord Bot Template",
   description:
     "A Discord bot template built with Next.js that runs in the edge runtime. Lightning-fast responses, zero cold starts, no servers to manage.",
-  authors: [{ name: "jzxhuang" }],
+  authors: [{ name: "Rot4tion" }],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

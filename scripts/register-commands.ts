@@ -11,7 +11,9 @@
  * @see https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands
  */
 
-import { commands } from "@/discord/client"
+import fs from "fs"
+import path from "path"
+import { CustomAPIApplicationCommand } from "@/types"
 import dotenv from "dotenv"
 
 dotenv.config({ path: ".env.local" })
@@ -33,6 +35,21 @@ const URL = `https://discord.com/api/v10/applications/${DISCORD_APP_ID}/commands
  * @see https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands
  */
 async function main() {
+  //Dynamic load commands
+  const pathCommands = path.join(__dirname, "../src/commands")
+  const commandFiles = await fs.readdirSync(pathCommands).filter((x) => x.endsWith(".ts"))
+
+  const commands: CustomAPIApplicationCommand[] = []
+
+  for (let i = 0; i < commandFiles.length; i++) {
+    const commandName = commandFiles[i].replace(".ts", "")
+    const pathImport = `../src/commands/${commandName}`
+    const command = (await import(pathImport)).default as CustomAPIApplicationCommand
+    if (command.isPrivate) continue
+    command.name = commandName
+    commands.push(command)
+  }
+
   const jsonCommands = JSON.stringify(commands)
 
   const response = await fetch(URL, {

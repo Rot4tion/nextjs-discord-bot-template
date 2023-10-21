@@ -2,7 +2,7 @@ import { CustomAPIApplicationCommand } from "@/types"
 import { APIInteractionResponse, InteractionResponseType, MessageFlags } from "discord-api-types/v10"
 import { NextResponse } from "next/server"
 
-const INVITE = {
+export default {
   name: "invite",
   description: "Get an invite link to add this bot to your server",
   execute: async (i) => {
@@ -15,4 +15,3 @@ const INVITE = {
     })
   },
 } as CustomAPIApplicationCommand
-export default INVITE

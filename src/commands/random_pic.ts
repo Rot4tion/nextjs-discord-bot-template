@@ -13,8 +13,8 @@ import { nanoid } from "nanoid"
 import { NextResponse } from "next/server"
 
 export type RandomPicType = "cat" | "dog" | "picsum"
-const RANDOM_PIC: CustomAPIApplicationCommand = {
-  name: "random_pic",
+
+export default {
   description: "Get a random picture",
   options: [
     {
@@ -53,5 +53,4 @@ const RANDOM_PIC: CustomAPIApplicationCommand = {
       data: { embeds: [embed] },
     })
   },
-}
-export default RANDOM_PIC
+} as CustomAPIApplicationCommand
