@@ -33,10 +33,8 @@ const URL = `https://discord.com/api/v10/applications/${DISCORD_APP_ID}/commands
  * @see https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands
  */
 async function main() {
-  console.log("🚀 ~ file: register-commands.ts:37 ~ main ~ commands:", commands)
-
   const jsonCommands = JSON.stringify(commands)
-  console.log("🚀 ~ file: register-commands.ts:37 ~ main ~ jsonCommands:", jsonCommands)
+
   const response = await fetch(URL, {
     headers: {
       "Content-Type": "application/json",

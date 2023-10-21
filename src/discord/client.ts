@@ -10,7 +10,7 @@ export const discordClient = axios.create({
   baseURL: "https://discord.com/api/v10",
   headers: { Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}` },
 })
-export const developers: string[] = process.env.DEVELOPERS?.split("|") || []
+export const developers: string[] = process.env.DEVELOPERS?.replaceAll(" ", "").split("|") || []
 /**
  * Share command metadata from a common spot to be used for both runtime
  * and registration.

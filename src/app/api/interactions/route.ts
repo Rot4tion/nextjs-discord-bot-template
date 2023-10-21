@@ -46,7 +46,7 @@ export async function POST(request: Request) {
     const { name } = interaction.data
     try {
       const command = (await import(`../../../commands/${name}`)).default as CustomAPIApplicationCommand
-
+      console.log("🚀 ~ file: route.ts:51 ~ POST ~ developers:", developers)
       if (command.isDeveloperOnly && !developers.includes(interaction.member?.user?.id as string)) {
         return NextResponse.json<APIInteractionResponse>({
           type: InteractionResponseType.ChannelMessageWithSource,
