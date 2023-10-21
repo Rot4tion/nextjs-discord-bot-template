@@ -9,10 +9,10 @@ import {
 import { NextResponse } from "next/server"
 
 const TEST_COMMAND: CustomAPIApplicationCommand = {
+  isDeveloperOnly: true,
   name: "test",
   description: "Using for test something.",
   execute: async (i) => {
-    
     return NextResponse.json<APIInteractionResponse>({
       type: InteractionResponseType.ChannelMessageWithSource,
       data: { embeds: [{ title: "test title", description: "test description" }] },

@@ -18,6 +18,7 @@ export type CustomAPIApplicationCommand = Omit<
   application_id?: string
   default_member_permissions?: string
   version?: string
+  isDeveloperOnly?: boolean
+  isPrivate?: boolean
   execute?: (interaction: APIChatInputApplicationCommandInteraction) => Promise<NextResponse<APIInteractionResponse>>
 }
-

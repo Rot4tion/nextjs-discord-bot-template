@@ -1,6 +1,6 @@
-import { commands } from "@/discord/client"
+import { commands, developers } from "@/discord/client"
 import { verifyInteractionRequest } from "@/discord/verify-incoming-request"
-import axios from "axios"
+import { CustomAPIApplicationCommand } from "@/types"
 import {
   APIInteractionDataOptionBase,
   APIInteractionResponse,
@@ -45,10 +45,16 @@ export async function POST(request: Request) {
   if (interaction.type === InteractionType.ApplicationCommand) {
     const { name } = interaction.data
     try {
-      const command = (await import(`../../../commands/${name}`)).default
+      const command = (await import(`../../../commands/${name}`)).default as CustomAPIApplicationCommand
 
-      // const command = commands.find((x) => x.name == name)
+      if (command.isDeveloperOnly && !developers.includes(interaction.member?.user?.id as string)) {
+        return NextResponse.json<APIInteractionResponse>({
+          type: InteractionResponseType.ChannelMessageWithSource,
+          data: { content: `Only developer can use this command` },
+        })
+      }
       if (command && command?.execute) {
+        // const command = commands.find((x) => x.name == name)
         return await command.execute(interaction)
       }
     } catch (error) {

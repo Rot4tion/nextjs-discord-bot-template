@@ -14,7 +14,7 @@ import { NextResponse } from "next/server"
 
 export type RandomPicType = "cat" | "dog" | "picsum"
 const RANDOM_PIC: CustomAPIApplicationCommand = {
-  name: "random_pic1",
+  name: "random_pic",
   description: "Get a random picture",
   options: [
     {

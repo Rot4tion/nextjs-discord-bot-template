@@ -19,7 +19,7 @@ export default async function Page() {
           </a>
           <a
             className="ring-offset-background focus-visible:ring-ring inline-flex h-10 w-fit items-center justify-center rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
-            href="https://github.com/jzxhuang/nextjs-discord-bot"
+            href="https://github.com/Rot4tion/nextjs-discord-bot-template"
             target="_blank"
             rel="noreferrer"
           >
