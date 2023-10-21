@@ -20,5 +20,7 @@ export type CustomAPIApplicationCommand = Omit<
   version?: string
   isDeveloperOnly?: boolean
   isPrivate?: boolean
+  /**Make sure it name same with file name */
+  name?: string
   execute?: (interaction: APIChatInputApplicationCommandInteraction) => Promise<NextResponse<APIInteractionResponse>>
 }
