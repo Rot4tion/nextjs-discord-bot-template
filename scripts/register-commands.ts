@@ -51,7 +51,7 @@ async function main() {
   }
 
   const jsonCommands = JSON.stringify(commands)
-
+  // Register commands to discord
   const response = await fetch(URL, {
     headers: {
       "Content-Type": "application/json",
