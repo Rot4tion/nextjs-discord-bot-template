@@ -32,19 +32,20 @@ export default {
   ],
   execute: async (i) => {
     const options = i.data.options as APIApplicationCommandInteractionDataBasicOption[]
-
+    //get interaction input
     const channelID = options.find((x) => x.name == "channel")?.value as string
     const inputMessage = options.find((x) => x.name == "message")?.value as string
 
     if (!options || !channelID || !inputMessage) {
       return new NextResponse("Invalid request", { status: 400 })
     }
-
+    //build embed
     const embed: APIEmbed = {
       title: "Send message complete!",
       description: `Complete send message "${inputMessage}" to channel ${channelMention(channelID)}`,
+      color: 0x08ff14,
     }
-
+    // send message
     try {
       const message = (
         await discordClient.post<APIMessage>(Routes.channelMessages(channelID as string), {
@@ -54,7 +55,7 @@ export default {
     } catch (error) {
       embed.title = "Send message fail!"
       embed.description = "Send message fail something wrong!"
-      embed.color = util.hexToDec("#ff0033")
+      embed.color = 0xff0033
     }
 
     return NextResponse.json<APIInteractionResponse>({

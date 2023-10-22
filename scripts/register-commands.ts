@@ -36,14 +36,15 @@ const URL = `https://discord.com/api/v10/applications/${DISCORD_APP_ID}/commands
  */
 async function main() {
   //Dynamic load commands
-  const pathCommands = path.join(__dirname, "../src/commands")
-  const commandFiles = await fs.readdirSync(pathCommands).filter((x) => x.endsWith(".ts"))
+  const pathCommands = "../src/handle_interactions/commands"
+
+  const commandFiles = await fs.readdirSync(path.join(__dirname, pathCommands)).filter((x) => x.endsWith(".ts"))
 
   const commands: CustomAPIApplicationCommand[] = []
 
   for (let i = 0; i < commandFiles.length; i++) {
     const commandName = commandFiles[i].replace(".ts", "")
-    const pathImport = `../src/commands/${commandName}`
+    const pathImport = `${pathCommands}/${commandName}`
     const command = (await import(pathImport)).default as CustomAPIApplicationCommand
     if (command.isPrivate) continue
     command.name = commandName
