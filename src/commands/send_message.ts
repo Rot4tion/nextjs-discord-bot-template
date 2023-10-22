@@ -6,6 +6,7 @@ import {
   APIMessage,
   ApplicationCommandOptionType,
   InteractionResponseType,
+  MessageFlags,
   Routes,
 } from "discord-api-types/v10"
 import { NextResponse } from "next/server"
@@ -27,19 +28,29 @@ export default {
   ],
   execute: async (i) => {
     const options = i.data.options as APIApplicationCommandInteractionDataBasicOption[]
-    if (!options || options.length < 2) {
+
+    const channelID = options.find((x) => x.name == "channel")?.value as string
+    const inputMessage = options.find((x) => x.name == "message")?.value as string
+
+    if (!options || !channelID || !inputMessage) {
       return new NextResponse("Invalid request", { status: 400 })
     }
-    const channelID = options.find((x) => x.name == "channel")
-    const inputMessage = options.find((x) => x.name == "message")
 
-    await discordClient.post(Routes.channelMessages(channelID?.value as string), {
-      content: inputMessage?.value,
+    await discordClient.post(Routes.channelMessages(channelID as string), {
+      content: inputMessage,
     } as APIMessage)
 
     return NextResponse.json<APIInteractionResponse>({
       type: InteractionResponseType.ChannelMessageWithSource,
-      data: { embeds: [{ title: "Send mesage complete!", description: "test description" }] },
+      data: {
+        embeds: [
+          {
+            title: "Send message complete!",
+            description: `Complete send message "${inputMessage}" to channel <#${channelID}>`,
+          },
+        ],
+        flags: MessageFlags.Ephemeral,
+      },
     })
   },
 } as CustomAPIApplicationCommand
