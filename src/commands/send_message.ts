@@ -30,9 +30,11 @@ export default {
     if (!options || options.length < 2) {
       return new NextResponse("Invalid request", { status: 400 })
     }
+    const channelID = options.find((x) => x.name == "channel")
+    const inputMessage = options.find((x) => x.name == "message")
 
-    await discordClient.post(Routes.channelMessages(options[0].value as string), {
-      content: options[1].value as string,
+    await discordClient.post(Routes.channelMessages(channelID?.value as string), {
+      content: inputMessage?.value,
     } as APIMessage)
 
     return NextResponse.json<APIInteractionResponse>({
