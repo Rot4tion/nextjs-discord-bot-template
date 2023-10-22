@@ -1,7 +1,10 @@
 import { discordClient } from "@/discord/client"
+import util from "@/lib/util"
 import { CustomAPIApplicationCommand } from "@/types"
+import { channelMention, userMention } from "@discordjs/formatters"
 import {
   APIApplicationCommandInteractionDataBasicOption,
+  APIEmbed,
   APIInteractionResponse,
   APIMessage,
   ApplicationCommandOptionType,
@@ -15,7 +18,7 @@ export default {
   description: "Send Message to channel",
   options: [
     {
-      type:ApplicationCommandOptionType.Channel,
+      type: ApplicationCommandOptionType.Channel,
       name: "channel",
       description: "Select channel you want to send message",
       required: true,
@@ -37,19 +40,27 @@ export default {
       return new NextResponse("Invalid request", { status: 400 })
     }
 
-    await discordClient.post(Routes.channelMessages(channelID as string), {
-      content: `<@${i.member?.user.id}>: ${inputMessage}`,
-    } as APIMessage)
+    const embed: APIEmbed = {
+      title: "Send message complete!",
+      description: `Complete send message "${inputMessage}" to channel ${channelMention(channelID)}`,
+    }
+
+    try {
+      const message = (
+        await discordClient.post<APIMessage>(Routes.channelMessages(channelID as string), {
+          content: `${userMention(i.member?.user.id as string)}: ${inputMessage}`,
+        } as APIMessage)
+      ).data
+    } catch (error) {
+      embed.title = "Send message fail!"
+      embed.description = "Send message fail something wrong!"
+      embed.color = util.hexToDec("#ff0033")
+    }
 
     return NextResponse.json<APIInteractionResponse>({
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
-        embeds: [
-          {
-            title: "Send message complete!",
-            description: `Complete send message "${inputMessage}" to channel <#${channelID}>`,
-          },
-        ],
+        embeds: [embed],
         flags: MessageFlags.Ephemeral,
       },
     })
