@@ -1,7 +1,24 @@
 import { developers } from "@/discord/client"
 import { verifyInteractionRequest } from "@/discord/verify-incoming-request"
 import { CustomAPIApplicationCommand } from "@/types"
-import { APIInteractionResponse, InteractionResponseType, InteractionType } from "discord-api-types/v10"
+import {
+  APIApplicationCommandAutocompleteInteraction,
+  APIApplicationCommandAutocompleteResponse,
+  APIApplicationCommandInteraction,
+  APIApplicationCommandInteractionData,
+  APIApplicationCommandInteractionDataOption,
+  APIChatInputApplicationCommandInteraction,
+  APIInteractionResponse,
+  APIMessageButtonInteractionData,
+  APIMessageComponentButtonInteraction,
+  APIMessageComponentInteraction,
+  APIMessageInteraction,
+  ApplicationCommandType,
+  ComponentType,
+  InteractionResponseType,
+  InteractionType,
+  MessageFlags,
+} from "discord-api-types/v10"
 import { NextResponse } from "next/server"
 
 /**
@@ -25,37 +42,66 @@ export async function POST(request: Request) {
   if (!verifyResult.isValid || !verifyResult.interaction) {
     return new NextResponse("Invalid request", { status: 401 })
   }
-  const { interaction } = verifyResult
+  let { interaction } = verifyResult
+  console.log("🚀 ~ file: route.ts:37 ~ POST ~ interaction:", interaction)
+  const interactionPath = "handle_interactions"
 
-  if (interaction.type === InteractionType.Ping) {
-    // The `PING` message is used during the initial webhook handshake, and is
-    // required to configure the webhook in the developer portal.
-    return NextResponse.json({ type: InteractionResponseType.Pong })
+  switch (interaction.type) {
+    case InteractionType.Ping:
+      // The `PING` message is used during the initial webhook handshake, and is
+      // required to configure the webhook in the developer portal.
+      return NextResponse.json({ type: InteractionResponseType.Pong })
+    case InteractionType.ApplicationCommand:
+      // commands
+      interaction = interaction as APIChatInputApplicationCommandInteraction
+
+      try {
+        const command = (await import(`../../../${interactionPath}/commands/${interaction.data.name}`))
+          .default as CustomAPIApplicationCommand
+        // Handler command permission
+        if (
+          command.isPrivate ||
+          (command.isDeveloperOnly && !developers.includes(interaction.member?.user?.id as string))
+        ) {
+          return NextResponse.json<APIInteractionResponse>({
+            type: InteractionResponseType.ChannelMessageWithSource,
+            data: { content: `Only developer can use this command` },
+          })
+        }
+        if (command && command?.execute) {
+          return await command.execute(interaction)
+        }
+      } catch (error) {
+        console.log("🚀 ~ file: route.ts:55 ~ POST ~ error:", error)
+      }
+      break
+    case InteractionType.MessageComponent:
+      // components
+      interaction = interaction as APIMessageComponentInteraction
+      try {
+        const component = (
+          await import(
+            `../../../${interactionPath}/components/${ComponentType[interaction.data.component_type]}/${
+              interaction.data.custom_id
+            }`
+          )
+        ).default
+        return await component(interaction)
+      } catch (error) {
+        console.log("🚀 ~ file: route.ts:79 ~ POST ~ error:", error)
+      }
+      break
+    case InteractionType.ModalSubmit:
+      break
+    case InteractionType.ApplicationCommandAutocomplete:
+      interaction = interaction as APIApplicationCommandAutocompleteInteraction
+
+      const focus = interaction.data.options.find((x: any) => x.focused)
+      const autoComplete = (
+        await import(`../../../${interactionPath}/autocomplete/${interaction.data.name}/${focus?.name}`)
+      ).default
+      return await autoComplete(interaction)
   }
 
-  if (interaction.type === InteractionType.ApplicationCommand) {
-    const { name } = interaction.data
-
-    try {
-      const command = (await import(`../../../commands/${name}`)).default as CustomAPIApplicationCommand
-
-      // Handler command permission
-      if (
-        command.isPrivate ||
-        (command.isDeveloperOnly && !developers.includes(interaction.member?.user?.id as string))
-      ) {
-        return NextResponse.json<APIInteractionResponse>({
-          type: InteractionResponseType.ChannelMessageWithSource,
-          data: { content: `Only developer can use this command` },
-        })
-      }
-      if (command && command?.execute) {
-        // const command = commands.find((x) => x.name == name)
-        return await command.execute(interaction)
-      }
-    } catch (error) {
-      console.log("🚀 ~ file: route.ts:55 ~ POST ~ error:", error)
-    }
-  }
-  return new NextResponse("Unknown command", { status: 400 })
+  return new NextResponse("Unknown interaction", { status: 400 })
 }
