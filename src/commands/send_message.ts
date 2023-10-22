@@ -37,7 +37,7 @@ export default {
     }
 
     await discordClient.post(Routes.channelMessages(channelID as string), {
-      content: inputMessage,
+      content: `<@${i.member?.user.id}>: ${inputMessage}`,
     } as APIMessage)
 
     return NextResponse.json<APIInteractionResponse>({
