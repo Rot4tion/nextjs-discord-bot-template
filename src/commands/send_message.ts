@@ -15,6 +15,7 @@ export default {
   description: "Send Message to channel",
   options: [
     {
+      type:ApplicationCommandOptionType.Channel,
       name: "channel",
       description: "Select channel you want to send message",
       required: true,

@@ -1,8 +1,5 @@
 import { CustomAPIApplicationCommand } from "@/types"
-import {
-  APIInteractionResponse,
-  InteractionResponseType,
-} from "discord-api-types/v10"
+import { APIInteractionResponse, InteractionResponseType } from "discord-api-types/v10"
 import { NextResponse } from "next/server"
 
 export default {
