@@ -31,13 +31,19 @@ https://discord.com/api/oauth2/authorize?client_id=837427503059435530&permission
 
 You can also send slash commands through DM to the bot as long as you're in a mutual server with the it!
 
-### File Structure
-- `src/commands`: Create your command here with the filename being the name of your command. (Use the `yarn register-commands` command to register your new command).
+## File Structure
+- `src/handle_interactions/commands`: Create your command here with the filename being the name of your command `<commnad_name>.ts`. (Use the `yarn register-commands` command to register your new command).
 
-- `src/app/api/interactions/route.ts`: This is the main route handler for the Interactions Endpoint. It receives
-  interactions from Discord and handles them accordingly.
+- `src/handle_interactions/autocomplete`: Create your autocomplete here with the following structure `/<your_command_name>/<option autocomplete name>.ts` look at **animal_action** command that is the example for autocomplete.
+
+- `src/handle_interactions/components`: Create your component handler here with the following structure `/<component_type>/<component_custom_id>.ts`
+
+- `src/handle_interactions/modal_submit`:Create your modal submit handler here with the following structure `<modal_custom_id>.ts`
+
+- `src/app/api/interactions/route.ts`: This is the main route handler for the Interactions Endpoint. It receives interactions from Discord and handles them accordingly.
 
 - `src/discord/verify-incoming-request.ts`: Helper functions to verify incoming requests from Discord, as outlined in https://discord.com/developers/docs/interactions/receiving-and-responding#security-and-authorization.
+
 - `src/app/page.tsx`: A basic web page. This could be your admin portal or whatever you'd like!
 
 ## Development
