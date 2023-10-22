@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import "./globals.css"
-import ThemeMUI from "@/components/ThemeMUI"
+import ThemeMUI from "@/components/MUI/ThemeMUI"
 
 export const metadata: Metadata = {
   title: "NextBot — Next.js Discord Bot Template",

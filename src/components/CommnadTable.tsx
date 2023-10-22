@@ -1,12 +1,12 @@
 "use client"
 
-import { DataGrid, GridCellModes, gridClasses, GridColDef, GridValueGetterParams } from "@mui/x-data-grid"
+import { DataGrid, gridClasses, GridColDef } from "@mui/x-data-grid"
 import * as React from "react"
 import "@fontsource/roboto/300.css"
 import "@fontsource/roboto/400.css"
 import "@fontsource/roboto/500.css"
 import "@fontsource/roboto/700.css"
-import { APIApplication, APIApplicationCommand } from "discord-api-types/v10"
+import { APIApplicationCommand } from "discord-api-types/v10"
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 200 },
@@ -16,7 +16,6 @@ const columns: GridColDef[] = [
 ]
 
 export default function CommandTable({ rows }: { rows: APIApplicationCommand[] }) {
-  rows[0].name
   return (
     <DataGrid
       //Disable cell outline
@@ -31,10 +30,6 @@ export default function CommandTable({ rows }: { rows: APIApplicationCommand[] }
       rowSelection={true}
       rows={rows}
       columns={columns}
-      //   disableColumnSelector={true}
-      //   disableDensitySelector={true}
-      //   disableRowSelectionOnClick={true}
-      //   disableVirtualization={true}
       hideFooter
       //   initialState={{
       //     pagination: {
