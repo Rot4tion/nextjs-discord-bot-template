@@ -19,11 +19,12 @@ export default function CommandTable({ rows }: { rows: APIApplicationCommand[] }
   rows[0].name
   return (
     <DataGrid
+      //Disable cell outline
       sx={{
-        [`& .${gridClasses.columnHeader}, & .${gridClasses.cell}`]: {
-          outline: "transparent",
+        [`& .${gridClasses.cell}:focus, & .${gridClasses.cell}:focus-within`]: {
+          outline: "none",
         },
-        [`& .${gridClasses.columnHeader}:focus-within, & .${gridClasses.cell}:focus-within`]: {
+        [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]: {
           outline: "none",
         },
       }}
