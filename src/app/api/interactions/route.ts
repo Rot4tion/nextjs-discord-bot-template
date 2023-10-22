@@ -13,6 +13,7 @@ import {
   APIMessageComponentButtonInteraction,
   APIMessageComponentInteraction,
   APIMessageInteraction,
+  APIModalSubmitInteraction,
   ApplicationCommandType,
   ComponentType,
   InteractionResponseType,
@@ -43,19 +44,19 @@ export async function POST(request: Request) {
     return new NextResponse("Invalid request", { status: 401 })
   }
   let { interaction } = verifyResult
-  console.log("🚀 ~ file: route.ts:37 ~ POST ~ interaction:", interaction)
+
   const interactionPath = "handle_interactions"
 
-  switch (interaction.type) {
-    case InteractionType.Ping:
-      // The `PING` message is used during the initial webhook handshake, and is
-      // required to configure the webhook in the developer portal.
-      return NextResponse.json({ type: InteractionResponseType.Pong })
-    case InteractionType.ApplicationCommand:
-      // commands
-      interaction = interaction as APIChatInputApplicationCommandInteraction
+  try {
+    switch (interaction.type) {
+      case InteractionType.Ping:
+        // The `PING` message is used during the initial webhook handshake, and is
+        // required to configure the webhook in the developer portal.
+        return NextResponse.json({ type: InteractionResponseType.Pong })
+      case InteractionType.ApplicationCommand:
+        // commands
+        interaction = interaction as APIChatInputApplicationCommandInteraction
 
-      try {
         const command = (await import(`../../../${interactionPath}/commands/${interaction.data.name}`))
           .default as CustomAPIApplicationCommand
         // Handler command permission
@@ -71,14 +72,11 @@ export async function POST(request: Request) {
         if (command && command?.execute) {
           return await command.execute(interaction)
         }
-      } catch (error) {
-        console.log("🚀 ~ file: route.ts:55 ~ POST ~ error:", error)
-      }
-      break
-    case InteractionType.MessageComponent:
-      // components
-      interaction = interaction as APIMessageComponentInteraction
-      try {
+
+        break
+      case InteractionType.MessageComponent:
+        // components
+        interaction = interaction as APIMessageComponentInteraction
         const component = (
           await import(
             `../../../${interactionPath}/components/${ComponentType[interaction.data.component_type]}/${
@@ -87,20 +85,27 @@ export async function POST(request: Request) {
           )
         ).default
         return await component(interaction)
-      } catch (error) {
-        console.log("🚀 ~ file: route.ts:79 ~ POST ~ error:", error)
-      }
-      break
-    case InteractionType.ModalSubmit:
-      break
-    case InteractionType.ApplicationCommandAutocomplete:
-      interaction = interaction as APIApplicationCommandAutocompleteInteraction
 
-      const focus = interaction.data.options.find((x: any) => x.focused)
-      const autoComplete = (
-        await import(`../../../${interactionPath}/autocomplete/${interaction.data.name}/${focus?.name}`)
-      ).default
-      return await autoComplete(interaction)
+      case InteractionType.ModalSubmit:
+        // modal_submit
+        interaction = interaction as APIModalSubmitInteraction
+        const modalSubmit = (await import(`../../../${interactionPath}/modal_submit/${interaction.data.custom_id}`))
+          .default
+
+        return await modalSubmit(interaction)
+
+      case InteractionType.ApplicationCommandAutocomplete:
+        // autocomplete
+        interaction = interaction as APIApplicationCommandAutocompleteInteraction
+
+        const focus = interaction.data.options.find((x: any) => x.focused)
+        const autoComplete = (
+          await import(`../../../${interactionPath}/autocomplete/${interaction.data.name}/${focus?.name}`)
+        ).default
+        return await autoComplete(interaction)
+    }
+  } catch (error) {
+    console.log("🚀 ~ file: route.ts:108 ~ POST ~ error:", error)
   }
 
   return new NextResponse("Unknown interaction", { status: 400 })
