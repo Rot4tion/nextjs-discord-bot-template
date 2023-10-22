@@ -1,4 +1,5 @@
 import { CustomAPIApplicationCommand } from "@/types"
+import { codeBlock } from "@discordjs/formatters"
 import {
   APIInteractionResponse,
   ApplicationCommandOptionType,
@@ -8,6 +9,7 @@ import {
 } from "discord-api-types/v10"
 import { NextResponse } from "next/server"
 
+// example auto complete
 export default {
   isDeveloperOnly: true,
   description: "Example autocomplete.",
@@ -24,7 +26,7 @@ export default {
     return NextResponse.json<APIInteractionResponse>({
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
-        embeds: [{ title: "test title", description: "test description" }],
+        embeds: [{ title: "Example autocomplete", description: codeBlock(JSON.stringify(i.data.options, null, 2)) }],
         components: [
           {
             type: ComponentType.ActionRow,

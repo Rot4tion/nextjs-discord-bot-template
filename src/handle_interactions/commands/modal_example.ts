@@ -1,0 +1,49 @@
+import { CustomAPIApplicationCommand } from "@/types"
+import {
+  APIInteractionResponse,
+  ButtonStyle,
+  ComponentType,
+  InteractionResponseType,
+  TextInputStyle,
+} from "discord-api-types/v10"
+import { NextResponse } from "next/server"
+
+export default {
+  isDeveloperOnly: true,
+  description: "Only developer can use this command using for test something.",
+  execute: async (i) => {
+    return NextResponse.json<APIInteractionResponse>({
+      type: InteractionResponseType.Modal,
+      data: {
+        custom_id: "modal_id_example",
+        title: "Example Modal",
+        components: [
+          {
+            type: ComponentType.ActionRow,
+            components: [
+              {
+                type: ComponentType.TextInput,
+                label: "Full Name",
+                custom_id: "username_id",
+                style: TextInputStyle.Short,
+                placeholder: "TTextInputStyle.Short",
+              },
+            ],
+          },
+          {
+            type: ComponentType.ActionRow,
+            components: [
+              {
+                type: ComponentType.TextInput,
+                label: "bio",
+                custom_id: "bio_id",
+                style: TextInputStyle.Paragraph,
+                placeholder: "TextInputStyle.Paragraph",
+              },
+            ],
+          },
+        ],
+      },
+    })
+  },
+} as CustomAPIApplicationCommand

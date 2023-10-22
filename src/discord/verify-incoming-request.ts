@@ -4,6 +4,7 @@ import {
   APIChatInputApplicationCommandInteraction,
   APIMessageComponentInteraction,
   APIMessageInteraction,
+  APIModalSubmitInteraction,
   APIPingInteraction,
 } from "discord-api-types/v10"
 import nacl from "tweetnacl"
@@ -32,6 +33,7 @@ type VerifyDiscordRequestResult =
         | APIChatInputApplicationCommandInteraction
         | APIMessageComponentInteraction
         | APIApplicationCommandAutocompleteInteraction
+        | APIModalSubmitInteraction
     }
 
 /**
@@ -60,7 +62,8 @@ export async function verifyInteractionRequest(
       | APIMessageInteraction
       | APIChatInputApplicationCommandInteraction
       | APIMessageComponentInteraction
-      | APIApplicationCommandAutocompleteInteraction,
+      | APIApplicationCommandAutocompleteInteraction
+      | APIModalSubmitInteraction,
     isValid: true,
   }
 }

@@ -7,7 +7,7 @@ import {
 import { NextResponse } from "next/server"
 
 export default async (i: APIMessageComponentButtonInteraction): Promise<NextResponse<APIInteractionResponse>> => {
-  // handler button
+  // Handler button
 
   return NextResponse.json<APIInteractionResponse>({
     type: InteractionResponseType.ChannelMessageWithSource,
