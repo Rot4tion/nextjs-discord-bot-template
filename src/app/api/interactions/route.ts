@@ -3,22 +3,13 @@ import { verifyInteractionRequest } from "@/discord/verify-incoming-request"
 import { CustomAPIApplicationCommand } from "@/types"
 import {
   APIApplicationCommandAutocompleteInteraction,
-  APIApplicationCommandAutocompleteResponse,
-  APIApplicationCommandInteraction,
-  APIApplicationCommandInteractionData,
-  APIApplicationCommandInteractionDataOption,
   APIChatInputApplicationCommandInteraction,
   APIInteractionResponse,
-  APIMessageButtonInteractionData,
-  APIMessageComponentButtonInteraction,
   APIMessageComponentInteraction,
-  APIMessageInteraction,
   APIModalSubmitInteraction,
-  ApplicationCommandType,
   ComponentType,
   InteractionResponseType,
   InteractionType,
-  MessageFlags,
 } from "discord-api-types/v10"
 import { NextResponse } from "next/server"
 

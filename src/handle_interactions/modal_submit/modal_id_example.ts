@@ -1,10 +1,8 @@
 import { codeBlock } from "@discordjs/formatters"
 import {
-  APIInteractionResponse,
-  APIModalSubmitInteraction,
-  ComponentType,
-  InteractionResponseType,
-  MessageFlags,
+    APIInteractionResponse,
+    APIModalSubmitInteraction,
+    InteractionResponseType
 } from "discord-api-types/v10"
 import { NextResponse } from "next/server"
 

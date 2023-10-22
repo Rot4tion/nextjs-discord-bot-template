@@ -1,5 +1,4 @@
 import { discordClient } from "@/discord/client"
-import util from "@/lib/util"
 import { CustomAPIApplicationCommand } from "@/types"
 import { channelMention, userMention } from "@discordjs/formatters"
 import {

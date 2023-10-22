@@ -11,7 +11,6 @@ import { NextResponse } from "next/server"
 
 // example auto complete
 export default {
-  isDeveloperOnly: true,
   description: "Example autocomplete.",
   options: [
     { type: ApplicationCommandOptionType.String, name: "animal", description: "Animal name", autocomplete: true },

@@ -1,11 +1,9 @@
 import {
   APIApplicationCommandAutocompleteInteraction,
-  APIApplicationCommandInteraction,
   APIChatInputApplicationCommandInteraction,
   APIMessageComponentInteraction,
   APIMessageInteraction,
-  APIModalSubmitInteraction,
-  APIPingInteraction,
+  APIModalSubmitInteraction
 } from "discord-api-types/v10"
 import nacl from "tweetnacl"
 
