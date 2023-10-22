@@ -1,6 +1,5 @@
 import axios from "axios"
-import { APIApplication } from "discord-api-types/v9"
-import { Routes } from "discord-api-types/v10"
+import { APIApplicationCommand, Routes } from "discord-api-types/v10"
 
 export const discordClient = axios.create({
   baseURL: "https://discord.com/api/v10",
@@ -12,4 +11,4 @@ export const developers: string[] = process.env.DEVELOPERS?.replaceAll(" ", "").
  * @see https://discord.com/developers/docs/interactions/application-commands#get-global-application-commands
  */
 export const getGlobalCommands = async ({ appId }: { appId: string }) =>
-  discordClient.get<APIApplication[]>(Routes.applicationCommands(appId))
+  discordClient.get<APIApplicationCommand[]>(Routes.applicationCommands(appId))
