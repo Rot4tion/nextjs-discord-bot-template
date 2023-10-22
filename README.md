@@ -19,13 +19,17 @@ NextBot is a template for building and deploying a Discord bot with Next.js. It 
 ## Try it out
 
 Join https://discord.gg/68RTn73yeZ to try out a demo of NextBot. Type one of these slash commands into the general
-channel:
-
+channel
+## Example command
 - `/ping`
 - `/invite`
-- `/random_pic`
-- `/send_message`
-- `/test`
+- `/random_pic` (Option)
+- `/send_message` (Options, discordClient send message)
+- `/animal_action` (Autocomplete)
+- `/modal_example` (Modal submit)
+- `/private_command` (Example private command, it not able to use and register to discord)
+- `/test` (Developer permission)
+
 <!-- Or add NextBot to your own server with this link:
 https://discord.com/api/oauth2/authorize?client_id=837427503059435530&permissions=2147485696&scope=bot%20applications.commands -->
 
