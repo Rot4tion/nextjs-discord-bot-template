@@ -38,7 +38,7 @@ export type CustomAPIApplicationCommand = Omit<
 export type CustomAPIInteraction = InteractionPermission & {
   isDisable?: boolean
   /**Only author can use*/
-  isOnlyAuthor: boolean
+  isOnlyAuthor?: boolean
   execute?: (
     interaction:
       | APIMessageComponentInteraction
