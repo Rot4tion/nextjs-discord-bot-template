@@ -12,10 +12,10 @@ import { NextResponse } from "next/server"
 export default {
   execute: async (
     i: APIApplicationCommandAutocompleteInteraction
-  ): Promise<NextResponse<APIApplicationCommandAutocompleteResponse>> => {
+  ): Promise<APIApplicationCommandAutocompleteResponse> => {
     // handler auto complete
 
-    return NextResponse.json<APIApplicationCommandAutocompleteResponse>({
+    return {
       type: InteractionResponseType.ApplicationCommandAutocompleteResult,
       data: {
         choices: [
@@ -25,6 +25,6 @@ export default {
           { name: "cow", value: "random_id" },
         ],
       },
-    })
+    }
   },
 } as CustomAPIInteraction

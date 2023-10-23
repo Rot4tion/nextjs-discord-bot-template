@@ -4,13 +4,13 @@ import { APIInteractionResponse, APIModalSubmitInteraction, InteractionResponseT
 import { NextResponse } from "next/server"
 
 export default {
-  execute: async (i: APIModalSubmitInteraction): Promise<NextResponse<APIInteractionResponse>> => {
+  execute: async (i: APIModalSubmitInteraction): Promise<APIInteractionResponse> => {
     // Handler modal submit
-    return NextResponse.json<APIInteractionResponse>({
+    return {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
         embeds: [{ title: "Example autocomplete", description: codeBlock(JSON.stringify(i.data.components, null, 2)) }],
       },
-    })
+    }
   },
 } as CustomAPIInteraction

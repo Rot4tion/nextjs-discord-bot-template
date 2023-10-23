@@ -123,6 +123,6 @@ export default {
       },
     }
 
-    return NextResponse.json<APIInteractionResponse>(response)
+    return response
   },
 } as CustomAPIApplicationCommand

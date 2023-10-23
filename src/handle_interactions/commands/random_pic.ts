@@ -47,9 +47,9 @@ export default {
         embed = { ...embed, image: { url: `https://picsum.photos/seed/${nanoid()}/500` } }
     }
 
-    return NextResponse.json<APIInteractionResponse>({
+    return {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: { embeds: [embed] },
-    })
+    }
   },
 } as CustomAPIApplicationCommand

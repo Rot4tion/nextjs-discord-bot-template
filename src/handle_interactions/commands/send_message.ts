@@ -30,7 +30,7 @@ export default {
       required: true,
     },
   ],
-  execute: async (i:APIChatInputApplicationCommandInteraction) => {
+  execute: async (i: APIChatInputApplicationCommandInteraction) => {
     const options = i.data.options as APIApplicationCommandInteractionDataBasicOption[]
     //get interaction input
     const channelID = options.find((x) => x.name == "channel")?.value as string
@@ -58,12 +58,12 @@ export default {
       embed.color = 0xff0033
     }
 
-    return NextResponse.json<APIInteractionResponse>({
+    return {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
         embeds: [embed],
         flags: MessageFlags.Ephemeral,
       },
-    })
+    }
   },
 } as CustomAPIApplicationCommand

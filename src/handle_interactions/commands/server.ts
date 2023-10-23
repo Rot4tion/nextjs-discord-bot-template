@@ -10,9 +10,9 @@ export default {
     const res = (await discordClient.get<APIGuild>(Routes.guild(i.guild_id as string))).data
     console.log("🚀 ~ file: server.ts:11 ~ execute: ~ res:", res)
 
-    return NextResponse.json<APIInteractionResponse>({
+    return {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: { embeds: [{ title: "test title", description: "test description" }] },
-    })
+    }
   },
 } as CustomAPIApplicationCommand

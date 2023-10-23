@@ -5,9 +5,9 @@ import { NextResponse } from "next/server"
 export default {
   description: "Ping pong! I'll respond with pong.",
   execute: async (i:APIChatInputApplicationCommandInteraction ) => {
-    return NextResponse.json<APIInteractionResponse>({
+    return {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: { content: `Pong` },
-    })
+    }
   },
 } as CustomAPIApplicationCommand

@@ -12,7 +12,7 @@ import { NextResponse } from "next/server"
 
 export default {
   execute: async (i: APIMessageComponentInteraction) => {
-    return NextResponse.json<APIInteractionResponse>({
+    return {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
         flags: MessageFlags.Ephemeral,
@@ -23,6 +23,6 @@ export default {
           },
         ],
       },
-    })
+    }
   },
 } as CustomAPIInteraction

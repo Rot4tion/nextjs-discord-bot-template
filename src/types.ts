@@ -28,7 +28,7 @@ export type CustomAPIInteraction = {
       | APIMessageComponentInteraction
       | APIModalSubmitInteraction
       | APIApplicationCommandAutocompleteInteraction
-  ) => Promise<NextResponse<APIInteractionResponse>>
+  ) => Promise<APIInteractionResponse>
 } & InteractionPermission
 
 export type CustomAPIApplicationCommand = Omit<

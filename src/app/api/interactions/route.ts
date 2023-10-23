@@ -78,7 +78,7 @@ export async function POST(request: Request) {
       return util.embedDeveloperPermission()
     }
     if (interactionModule && interactionModule?.execute) {
-      return await interactionModule.execute(interaction)
+      return NextResponse.json<APIInteractionResponse>(await interactionModule.execute(interaction))
     }
   } catch (error: any) {
     const embed: APIEmbed = { title: "Interaction fail!", description: "Something went wrong \n", color: 0xff0000 }

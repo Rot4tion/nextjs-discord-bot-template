@@ -12,7 +12,7 @@ export default {
   isDeveloperOnly: true,
   description: "Only developer can use this command using for test something.",
   execute: async (i: APIChatInputApplicationCommandInteraction) => {
-    return NextResponse.json<APIInteractionResponse>({
+    return {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
         embeds: [{ title: "test title", description: "test description" }],
@@ -30,6 +30,6 @@ export default {
           },
         ],
       },
-    })
+    }
   },
 } as CustomAPIApplicationCommand

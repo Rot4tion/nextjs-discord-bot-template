@@ -1,11 +1,17 @@
 import { CustomAPIApplicationCommand } from "@/types"
-import { APIChatInputApplicationCommandInteraction, APIInteractionResponse, ComponentType, InteractionResponseType, TextInputStyle } from "discord-api-types/v10"
+import {
+  APIChatInputApplicationCommandInteraction,
+  APIInteractionResponse,
+  ComponentType,
+  InteractionResponseType,
+  TextInputStyle,
+} from "discord-api-types/v10"
 import { NextResponse } from "next/server"
 
 export default {
   description: "Example modal submit",
-  execute: async (i:APIChatInputApplicationCommandInteraction ) => {
-    return NextResponse.json<APIInteractionResponse>({
+  execute: async (i: APIChatInputApplicationCommandInteraction) => {
+    return {
       type: InteractionResponseType.Modal,
       data: {
         custom_id: "modal_id_example",
@@ -37,6 +43,6 @@ export default {
           },
         ],
       },
-    })
+    }
   },
 } as CustomAPIApplicationCommand

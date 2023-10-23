@@ -24,7 +24,7 @@ export default {
     },
   ],
   execute: async (i: APIChatInputApplicationCommandInteraction) => {
-    return NextResponse.json<APIInteractionResponse>({
+    return {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
         flags: MessageFlags.Ephemeral,
@@ -43,6 +43,6 @@ export default {
           },
         ],
       },
-    })
+    }
   },
 } as CustomAPIApplicationCommand
