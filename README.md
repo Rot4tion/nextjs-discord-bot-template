@@ -28,6 +28,7 @@ channel
 - `/send_message` (Options, discordClient send message)
 - `/animal_action` (Autocomplete)
 - `/modal_example` (Modal submit)
+- `/components_example` (Example all components interaction)
 - `/private_command` (Example private command, it not able to use and register to discord)
 - `/test` (Developer permission)
 

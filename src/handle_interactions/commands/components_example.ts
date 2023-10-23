@@ -9,6 +9,7 @@ import {
   ChannelType,
   ComponentType,
   InteractionResponseType,
+  MessageFlags,
 } from "discord-api-types/v10"
 import { NextResponse } from "next/server"
 
@@ -19,7 +20,7 @@ const components_type = Object.keys(ComponentType)
       value: ComponentType[key],
     }
   })
-  .filter((x) => isNaN(Number(x.name)))
+  .filter((x) => isNaN(Number(x.name)) && x.name != "ActionRow" && x.name != "TextInput")
 
 export default {
   description: "Example components",
@@ -45,6 +46,12 @@ export default {
     let exampleComponent: APIMessageActionRowComponent | undefined = undefined
     switch (componentType) {
       case ComponentType.Button:
+        exampleComponent = {
+          type: ComponentType.Button,
+          label: "Confirm",
+          style: ButtonStyle.Success,
+          custom_id: "confirm_example",
+        }
         break
       case ComponentType.ChannelSelect:
         exampleComponent = {
@@ -102,6 +109,7 @@ export default {
     }
     const response: APIInteractionResponse = {
       type: InteractionResponseType.ChannelMessageWithSource,
+
       data: {
         embeds: [{ title: `Example ${componentName}`, description: "description" }],
         components: [
@@ -110,6 +118,7 @@ export default {
             components: [exampleComponent],
           },
         ],
+        flags: MessageFlags.Ephemeral,
       },
     }
 
