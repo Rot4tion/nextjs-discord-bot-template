@@ -1,9 +1,10 @@
 import { getGlobalCommands } from "@/discord/client"
+import { APIApplicationCommand } from "discord-api-types/v10"
 import CommandTable from "./CommnadTable"
 
 export async function GlobalCommands() {
   try {
-    const commands = (await getGlobalCommands({ appId: process.env.DISCORD_APP_ID! })).data
+    const commands = (await getGlobalCommands({ appId: process.env.DISCORD_APP_ID! })) as APIApplicationCommand[]
     if (commands.length <= 0) {
       return <p className="pt-6">No commands found :</p>
     }

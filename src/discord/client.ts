@@ -1,5 +1,4 @@
 import { REST } from "@discordjs/rest"
-import axios from "axios"
 import { APIApplicationCommand, Routes } from "discord-api-types/v10"
 
 // @ts-ignore
@@ -12,5 +11,6 @@ export const developers: string[] = process.env.DEVELOPERS?.replaceAll(" ", "").
 /**
  * @see https://discord.com/developers/docs/interactions/application-commands#get-global-application-commands
  */
-export const getGlobalCommands = async ({ appId }: { appId: string }) =>
-  discordClient.get(Routes.applicationCommands(appId))
+export const getGlobalCommands = async ({ appId }: { appId: string }) => {
+  return discordClient.get(Routes.applicationCommands(appId))
+}
