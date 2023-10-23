@@ -47,11 +47,9 @@ export default {
     }
     // send message
     try {
-      const message = (
-        await discordClient.post<APIMessage>(Routes.channelMessages(channelID as string), {
-          content: `${userMention(i.member?.user.id as string)}: ${inputMessage}`,
-        } as APIMessage)
-      ).data
+      const message = await discordClient.post(Routes.channelMessages(channelID as string), {
+        body: { content: `${userMention(i.member?.user.id as string)}: ${inputMessage}` },
+      })
     } catch (error) {
       embed.title = "Send message fail!"
       embed.description = "Send message fail something wrong!"
