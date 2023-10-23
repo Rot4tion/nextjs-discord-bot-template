@@ -46,7 +46,7 @@ async function main() {
     const commandName = commandFiles[i].replace(".ts", "")
     const pathImport = `${pathCommands}/${commandName}`
     const command = (await import(pathImport)).default as CustomAPIApplicationCommand
-    if (command.isPrivate) continue
+    if (command.isDisable) continue
     command.name = commandName
     commands.push(command)
   }

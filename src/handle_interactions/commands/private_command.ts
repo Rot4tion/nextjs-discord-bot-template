@@ -4,7 +4,7 @@ import { NextResponse } from "next/server"
 
 // This is private command will not register to discord
 export default {
-  isPrivate: true,
+  isDisable: true,
   description: "Example private command",
   execute: async (i) => {
     return NextResponse.json<APIInteractionResponse>({

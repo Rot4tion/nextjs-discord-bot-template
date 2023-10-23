@@ -54,7 +54,7 @@ export async function POST(request: Request) {
         const command = (await import(`../../../${interactionPath}/commands/${interaction.data.name}`))
           .default as CustomAPIApplicationCommand
         // Handler command permission
-        if (command.isPrivate || (command.isDeveloperOnly && !util.isDeveloper(interaction))) {
+        if (command.isDisable || (command.isDeveloperOnly && !util.isDeveloper(interaction))) {
           return util.embedDeveloperPermission()
         }
         if (command && command?.execute) {
@@ -94,7 +94,6 @@ export async function POST(request: Request) {
     }
   } catch (error: any) {
     const embed: APIEmbed = { title: "Interaction fail!", description: "Something went wrong \n", color: 0xff0000 }
-
     if (util.isDeveloper(interaction)) {
       embed.description = `Only developer can see this error:\n ${codeBlock(error)}`
     }
