@@ -1,6 +1,7 @@
 import { CustomAPIApplicationCommand } from "@/types"
 import { codeBlock } from "@discordjs/formatters"
 import {
+  APIChatInputApplicationCommandInteraction,
   APIInteractionResponse,
   ApplicationCommandOptionType,
   ButtonStyle,
@@ -22,7 +23,7 @@ export default {
       autocomplete: true,
     },
   ],
-  execute: async (i) => {
+  execute: async (i: APIChatInputApplicationCommandInteraction) => {
     return NextResponse.json<APIInteractionResponse>({
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {

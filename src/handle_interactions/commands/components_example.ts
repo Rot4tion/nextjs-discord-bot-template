@@ -2,6 +2,7 @@ import util from "@/lib/util"
 import { CustomAPIApplicationCommand } from "@/types"
 import {
   APIApplicationCommandInteractionDataBasicOption,
+  APIChatInputApplicationCommandInteraction,
   APIInteractionResponse,
   APIMessageActionRowComponent,
   ApplicationCommandOptionType,
@@ -32,7 +33,7 @@ export default {
       choices: components_type,
     },
   ],
-  execute: async (i) => {
+  execute: async (i: APIChatInputApplicationCommandInteraction) => {
     const options = i.data.options as APIApplicationCommandInteractionDataBasicOption[]
     const componentType: ComponentType = options.find((x) => x.name == "component_type")?.value as ComponentType
     const componentName = ComponentType[componentType]

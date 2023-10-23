@@ -1,7 +1,7 @@
 import { developers } from "@/discord/client"
 import { verifyInteractionRequest } from "@/discord/verify-incoming-request"
 import util from "@/lib/util"
-import { CustomAPIApplicationCommand } from "@/types"
+import { CustomAPIApplicationCommand, CustomAPIInteraction } from "@/types"
 import { codeBlock } from "@discordjs/formatters"
 import {
   APIApplicationCommandAutocompleteInteraction,
@@ -39,8 +39,8 @@ export async function POST(request: Request) {
     return new NextResponse("Invalid request", { status: 401 })
   }
   let { interaction } = verifyResult
+  let interactionModulePath = "handle_interactions"
 
-  const interactionPath = "handle_interactions"
   try {
     switch (interaction.type) {
       case InteractionType.Ping:
@@ -50,50 +50,39 @@ export async function POST(request: Request) {
       case InteractionType.ApplicationCommand:
         // commands
         interaction = interaction as APIChatInputApplicationCommandInteraction
-
-        const command = (await import(`../../../${interactionPath}/commands/${interaction.data.name}`))
-          .default as CustomAPIApplicationCommand
-        // Handler command permission
-        if (command.isDisable || (command.isDeveloperOnly && !util.isDeveloper(interaction))) {
-          return util.embedDeveloperPermission()
-        }
-        if (command && command?.execute) {
-          return await command.execute(interaction)
-        }
-
+        interactionModulePath = `${interactionModulePath}/commands/${interaction.data.name}`
         break
       case InteractionType.MessageComponent:
         // components
         interaction = interaction as APIMessageComponentInteraction
-        const component = (
-          await import(
-            `../../../${interactionPath}/components/${ComponentType[interaction.data.component_type]}/${
-              interaction.data.custom_id
-            }`
-          )
-        ).default
-        return await component(interaction)
-
+        interactionModulePath = `${interactionModulePath}/components/${
+          ComponentType[interaction.data.component_type]
+        }/${interaction.data.custom_id}`
+        break
       case InteractionType.ModalSubmit:
         // modal_submit
         interaction = interaction as APIModalSubmitInteraction
-        const modalSubmit = (await import(`../../../${interactionPath}/modal_submit/${interaction.data.custom_id}`))
-          .default
-
-        return await modalSubmit(interaction)
-
+        interactionModulePath = `${interactionModulePath}/modal_submit/${interaction.data.custom_id}`
+        break
       case InteractionType.ApplicationCommandAutocomplete:
         // autocomplete
         interaction = interaction as APIApplicationCommandAutocompleteInteraction
-
         const focus = interaction.data.options.find((x: any) => x.focused)
-        const autoComplete = (
-          await import(`../../../${interactionPath}/autocomplete/${interaction.data.name}/${focus?.name}`)
-        ).default
-        return await autoComplete(interaction)
+        interactionModulePath = `${interactionModulePath}/autocomplete/${interaction.data.name}/${focus?.name}`
+        break
+    }
+
+    const interactionModule = (await import(`../../../${interactionModulePath}`)).default as CustomAPIInteraction
+    // Handler command permission
+    if (interactionModule.isDisable || (interactionModule.isDeveloperOnly && !util.isDeveloper(interaction))) {
+      return util.embedDeveloperPermission()
+    }
+    if (interactionModule && interactionModule?.execute) {
+      return await interactionModule.execute(interaction)
     }
   } catch (error: any) {
     const embed: APIEmbed = { title: "Interaction fail!", description: "Something went wrong \n", color: 0xff0000 }
+
     if (util.isDeveloper(interaction)) {
       embed.description = `Only developer can see this error:\n ${codeBlock(error)}`
     }

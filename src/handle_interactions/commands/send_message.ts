@@ -3,6 +3,7 @@ import { CustomAPIApplicationCommand } from "@/types"
 import { channelMention, userMention } from "@discordjs/formatters"
 import {
   APIApplicationCommandInteractionDataBasicOption,
+  APIChatInputApplicationCommandInteraction,
   APIEmbed,
   APIInteractionResponse,
   APIMessage,
@@ -29,7 +30,7 @@ export default {
       required: true,
     },
   ],
-  execute: async (i) => {
+  execute: async (i:APIChatInputApplicationCommandInteraction) => {
     const options = i.data.options as APIApplicationCommandInteractionDataBasicOption[]
     //get interaction input
     const channelID = options.find((x) => x.name == "channel")?.value as string

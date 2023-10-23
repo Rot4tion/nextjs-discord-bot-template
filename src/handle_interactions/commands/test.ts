@@ -1,11 +1,17 @@
 import { CustomAPIApplicationCommand } from "@/types"
-import { APIInteractionResponse, ButtonStyle, ComponentType, InteractionResponseType } from "discord-api-types/v10"
+import {
+  APIChatInputApplicationCommandInteraction,
+  APIInteractionResponse,
+  ButtonStyle,
+  ComponentType,
+  InteractionResponseType,
+} from "discord-api-types/v10"
 import { NextResponse } from "next/server"
 
 export default {
   isDeveloperOnly: true,
   description: "Only developer can use this command using for test something.",
-  execute: async (i) => {
+  execute: async (i: APIChatInputApplicationCommandInteraction) => {
     return NextResponse.json<APIInteractionResponse>({
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {

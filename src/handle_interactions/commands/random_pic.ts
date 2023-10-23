@@ -1,6 +1,7 @@
 import { CustomAPIApplicationCommand } from "@/types"
 import axios from "axios"
 import {
+  APIChatInputApplicationCommandInteraction,
   APIEmbed,
   APIInteractionDataOptionBase,
   APIInteractionResponse,
@@ -27,7 +28,7 @@ export default {
       ],
     },
   ],
-  execute: async (i) => {
+  execute: async (i:APIChatInputApplicationCommandInteraction) => {
     const { options } = i.data
     if (!options) {
       return new NextResponse("Invalid request", { status: 400 })

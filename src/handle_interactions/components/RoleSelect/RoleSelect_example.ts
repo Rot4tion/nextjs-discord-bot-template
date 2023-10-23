@@ -1,3 +1,4 @@
+import { CustomAPIInteraction } from "@/types"
 import { codeBlock } from "@discordjs/formatters"
 import {
   APIInteractionResponse,
@@ -9,17 +10,19 @@ import {
 } from "discord-api-types/v10"
 import { NextResponse } from "next/server"
 
-export default async (i: APIMessageComponentInteraction) => {
-  return NextResponse.json<APIInteractionResponse>({
-    type: InteractionResponseType.ChannelMessageWithSource,
-    data: {
-      flags: MessageFlags.Ephemeral,
-      embeds: [
-        {
-          title: `Example ${ComponentType[i.data.component_type]}`,
-          description: codeBlock(JSON.stringify(i.data, null, 2)),
-        },
-      ],
-    },
-  })
-}
+export default {
+  execute: async (i: APIMessageComponentInteraction) => {
+    return NextResponse.json<APIInteractionResponse>({
+      type: InteractionResponseType.ChannelMessageWithSource,
+      data: {
+        flags: MessageFlags.Ephemeral,
+        embeds: [
+          {
+            title: `Example ${ComponentType[i.data.component_type]}`,
+            description: codeBlock(JSON.stringify(i.data, null, 2)),
+          },
+        ],
+      },
+    })
+  },
+} as CustomAPIInteraction
