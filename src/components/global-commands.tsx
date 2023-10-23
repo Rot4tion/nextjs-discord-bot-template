@@ -1,6 +1,6 @@
 import { getGlobalCommands } from "@/discord/client"
 import { APIApplicationCommand } from "discord-api-types/v10"
-import CommandTable from "./CommnadTable"
+import CommandTable from "./CommandTable"
 
 export async function GlobalCommands() {
   try {
