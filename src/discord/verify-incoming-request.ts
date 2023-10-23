@@ -3,11 +3,11 @@ import {
   APIChatInputApplicationCommandInteraction,
   APIMessageComponentInteraction,
   APIMessageInteraction,
-  APIModalSubmitInteraction
+  APIModalSubmitInteraction,
 } from "discord-api-types/v10"
 import nacl from "tweetnacl"
 
-type VerifyWithNaclArgs = {
+export type VerifyWithNaclArgs = {
   appPublicKey: string
   rawBody: string
   signature: string
@@ -21,17 +21,18 @@ const verifyWithNacl = ({ appPublicKey, signature, rawBody, timestamp }: VerifyW
     Buffer.from(appPublicKey, "hex")
   )
 }
+export type APIInputInteraction =
+  | APIMessageInteraction
+  | APIChatInputApplicationCommandInteraction
+  | APIMessageComponentInteraction
+  | APIApplicationCommandAutocompleteInteraction
+  | APIModalSubmitInteraction
 
-type VerifyDiscordRequestResult =
+export type VerifyDiscordRequestResult =
   | { isValid: false }
   | {
       isValid: true
-      interaction:
-        | APIMessageInteraction
-        | APIChatInputApplicationCommandInteraction
-        | APIMessageComponentInteraction
-        | APIApplicationCommandAutocompleteInteraction
-        | APIModalSubmitInteraction
+      interaction: APIInputInteraction
     }
 
 /**
@@ -56,12 +57,7 @@ export async function verifyInteractionRequest(
   }
 
   return {
-    interaction: JSON.parse(rawBody) as
-      | APIMessageInteraction
-      | APIChatInputApplicationCommandInteraction
-      | APIMessageComponentInteraction
-      | APIApplicationCommandAutocompleteInteraction
-      | APIModalSubmitInteraction,
+    interaction: JSON.parse(rawBody) as APIInputInteraction,
     isValid: true,
   }
 }

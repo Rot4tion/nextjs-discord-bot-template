@@ -6,6 +6,7 @@ import {
   ButtonStyle,
   ComponentType,
   InteractionResponseType,
+  MessageFlags,
 } from "discord-api-types/v10"
 import { NextResponse } from "next/server"
 
@@ -25,6 +26,7 @@ export default {
     return NextResponse.json<APIInteractionResponse>({
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
+        flags: MessageFlags.Ephemeral,
         embeds: [{ title: "Example autocomplete", description: codeBlock(JSON.stringify(i.data.options, null, 2)) }],
         components: [
           {

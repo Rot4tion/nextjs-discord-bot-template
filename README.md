@@ -8,9 +8,10 @@ NextBot is a template for building and deploying a Discord bot with Next.js. It 
   bother with Heroku, EC2, etc.
 - Easy to extend: Since the bot is built on Next.js, you can easily build an accompanying webapp in the same repo.
 ## Features
-* 💪 Dynamic load commands
+* ✅ Dynamic load commands
 * 🔥 Slash commands (supports auto complete!)
-* 🏴 Command Permissions
+* 👮‍♂️ Command permissions
+* 
 ## Using Library and Framework
 * [Typescript](https://www.typescriptlang.org/)
 * [Tailwind CSS ](https://tailwindcss.com/)
@@ -36,13 +37,13 @@ https://discord.com/api/oauth2/authorize?client_id=837427503059435530&permission
 You can also send slash commands through DM to the bot as long as you're in a mutual server with the it!
 
 ## File Structure
-- `src/handle_interactions/commands`: Create your command here with the filename being the name of your command `<commnad_name>.ts`. (Use the `yarn register-commands` command to register your new command).
+- `src/handle_interactions/commands/<commnad_name>.ts`: Create your command here with the filename being the name of your command. (Use the `yarn register-commands` command to register your new command).
 
-- `src/handle_interactions/autocomplete`: Create your autocomplete here with the following structure `/<your_command_name>/<option autocomplete name>.ts` look at **animal_action** command that is the example for autocomplete.
+- `src/handle_interactions/autocomplete/<your_command_name>/<option autocomplete name>.ts`: Create your autocomplete handler, look at **animal_action** command that is the example for autocomplete.
 
-- `src/handle_interactions/components`: Create your component handler here with the following structure `/<component_type>/<component_custom_id>.ts`
+- `src/handle_interactions/components/<component_type>/<component_custom_id>.ts`: Create your component handler here with the following structure.
 
-- `src/handle_interactions/modal_submit`:Create your modal submit handler here with the following structure `<modal_custom_id>.ts`
+- `src/handle_interactions/modal_submit/<modal_custom_id>.ts`:Create your modal submit handler
 
 - `src/app/api/interactions/route.ts`: This is the main route handler for the Interactions Endpoint. It receives interactions from Discord and handles them accordingly.
 

@@ -1,15 +1,19 @@
 import { developers } from "@/discord/client"
 import { verifyInteractionRequest } from "@/discord/verify-incoming-request"
+import util from "@/lib/util"
 import { CustomAPIApplicationCommand } from "@/types"
+import { codeBlock } from "@discordjs/formatters"
 import {
   APIApplicationCommandAutocompleteInteraction,
   APIChatInputApplicationCommandInteraction,
+  APIEmbed,
   APIInteractionResponse,
   APIMessageComponentInteraction,
   APIModalSubmitInteraction,
   ComponentType,
   InteractionResponseType,
   InteractionType,
+  MessageFlags,
 } from "discord-api-types/v10"
 import { NextResponse } from "next/server"
 
@@ -37,7 +41,6 @@ export async function POST(request: Request) {
   let { interaction } = verifyResult
 
   const interactionPath = "handle_interactions"
-
   try {
     switch (interaction.type) {
       case InteractionType.Ping:
@@ -51,14 +54,8 @@ export async function POST(request: Request) {
         const command = (await import(`../../../${interactionPath}/commands/${interaction.data.name}`))
           .default as CustomAPIApplicationCommand
         // Handler command permission
-        if (
-          command.isPrivate ||
-          (command.isDeveloperOnly && !developers.includes(interaction.member?.user?.id as string))
-        ) {
-          return NextResponse.json<APIInteractionResponse>({
-            type: InteractionResponseType.ChannelMessageWithSource,
-            data: { content: `Only developer can use this command` },
-          })
+        if (command.isPrivate || (command.isDeveloperOnly && !util.isDeveloper(interaction))) {
+          return util.embedDeveloperPermission()
         }
         if (command && command?.execute) {
           return await command.execute(interaction)
@@ -95,9 +92,20 @@ export async function POST(request: Request) {
         ).default
         return await autoComplete(interaction)
     }
-  } catch (error) {
-    console.log("🚀 ~ file: route.ts:108 ~ POST ~ error:", error)
+  } catch (error: any) {
+    const embed: APIEmbed = { title: "Interaction fail!", description: "Something went wrong \n", color: 0xff0000 }
+
+    if (util.isDeveloper(interaction)) {
+      embed.description = `Only developer can see this error:\n ${codeBlock(error)}`
+    }
+    return NextResponse.json<APIInteractionResponse>({
+      type: InteractionResponseType.ChannelMessageWithSource,
+      data: {
+        embeds: [embed],
+        flags: MessageFlags.Ephemeral,
+      },
+    })
   }
 
-  return new NextResponse("Unknown interaction", { status: 400 })
+  return util.invalidRequestResponse()
 }
