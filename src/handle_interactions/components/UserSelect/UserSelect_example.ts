@@ -1,14 +1,11 @@
 import { CustomAPIInteraction } from "@/types"
 import { codeBlock } from "@discordjs/formatters"
 import {
-  APIInteractionResponse,
   APIMessageComponentInteraction,
-  ButtonStyle,
   ComponentType,
   InteractionResponseType,
   MessageFlags,
 } from "discord-api-types/v10"
-import { NextResponse } from "next/server"
 
 export default {
   execute: async (i: APIMessageComponentInteraction) => {
