@@ -12,7 +12,13 @@ const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 200 },
   { field: "name", headerName: "Name", width: 200 },
   { field: "description", headerName: "Description", width: 500 },
-  { field: "options", headerName: "Options" },
+  {
+    field: "options",
+    headerName: "Options",
+    renderCell(x) {
+      return x.value?.length || 0
+    },
+  },
 ]
 
 export default function CommandTable({ rows }: { rows: APIApplicationCommand[] }) {
