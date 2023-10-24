@@ -14,8 +14,6 @@ NextBot is a template for building and deploying a Discord bot with Next.js. It 
 ## Using Library and Framework
 * [Typescript](https://www.typescriptlang.org/)
 * [Tailwind CSS ](https://tailwindcss.com/)
-* [Material UI](https://mui.com/) (Community version)
-* [Material Icons](https://mui.com/material-ui/material-icons/)
 * [discord-api-types](https://discord-api-types.dev/api/discord-api-types-v10/)
 * [@discordjs/rest](https://www.npmjs.com/package/@discordjs/rest)
 * [@discordjs/formatters](https://discordjs.guide/popular-topics/formatters.html#basic-markdown)

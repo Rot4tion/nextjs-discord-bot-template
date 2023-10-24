@@ -1,6 +1,5 @@
 import { Metadata } from "next"
 import "./globals.css"
-import ThemeMUI from "@/components/MUI/ThemeMUI"
 
 export const metadata: Metadata = {
   title: "NextBot — Next.js Discord Bot Template",
@@ -12,9 +11,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <ThemeMUI>
-        <body>{children}</body>
-      </ThemeMUI>
+      <body>{children}</body>
     </html>
   )
 }
