@@ -3,6 +3,8 @@ import { CustomAPIApplicationCommand } from "@/types"
 import {
   APIChatInputApplicationCommandInteraction,
   APIGuild,
+  APIGuildMember,
+  APIGuildPreview,
   APIInteractionResponse,
   InteractionResponseType,
   Routes,
@@ -13,8 +15,11 @@ export default {
   isDeveloperOnly: true,
   description: "Show server info",
   execute: async (i: APIChatInputApplicationCommandInteraction) => {
-    const res = (await discordClient.get(Routes.guild(i.guild_id as string))) as APIGuild
-    console.log("🚀 ~ file: server.ts:11 ~ execute: ~ res:", res)
+    const guild = (await discordClient.get(Routes.guild(i.guild_id as string))) as APIGuild
+
+    const guildMembers = await discordClient.get(Routes.guildAuditLog(i.guild_id as string))
+    console.log("🚀 ~ file: server.ts:18 ~ execute: ~ guildMembers:", guildMembers)
+    console.log("🚀 ~ file: server.ts:11 ~ execute: ~ res:", guild)
 
     return {
       type: InteractionResponseType.ChannelMessageWithSource,

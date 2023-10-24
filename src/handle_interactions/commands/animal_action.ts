@@ -28,7 +28,7 @@ export default {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
         flags: MessageFlags.Ephemeral,
-        embeds: [{ title: "Example autocomplete", description: codeBlock(JSON.stringify(i.data.options, null, 2)) }],
+        embeds: [{ title: "Example autocomplete", description: codeBlock("json", JSON.stringify(i.data.options, null, 2)) }],
         components: [
           {
             type: ComponentType.ActionRow,

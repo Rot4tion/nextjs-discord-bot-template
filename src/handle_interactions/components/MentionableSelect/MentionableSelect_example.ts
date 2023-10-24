@@ -19,7 +19,7 @@ export default {
         embeds: [
           {
             title: `Example ${ComponentType[i.data.component_type]}`,
-            description: codeBlock(JSON.stringify(i.data, null, 2)),
+            description: codeBlock("json", JSON.stringify(i.data, null, 2)),
           },
         ],
       },

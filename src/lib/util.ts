@@ -5,8 +5,7 @@ import { NextResponse } from "next/server"
 
 const util = {
   invalidRequestResponse() {
-    console.log("🚀 ~ file: util.ts:7 ~ invalidRequestResponse ~ Invalid request:")
-    return new NextResponse("Invalid request", { status: 400 })
+    return NextResponse.json({ error: "Invalid request", status: 400 })
   },
   embedDeveloperPermission() {
     return NextResponse.json<APIInteractionResponse>({

@@ -9,7 +9,7 @@ export default {
     return {
       type: InteractionResponseType.ChannelMessageWithSource,
       data: {
-        embeds: [{ title: "Example autocomplete", description: codeBlock(JSON.stringify(i.data.components, null, 2)) }],
+        embeds: [{ title: "Example autocomplete", description: codeBlock("json", JSON.stringify(i.data.components, null, 2)) }],
       },
     }
   },

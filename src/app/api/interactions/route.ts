@@ -36,7 +36,7 @@ const DISCORD_APP_PUBLIC_KEY = process.env.DISCORD_APP_PUBLIC_KEY
 export async function POST(request: Request) {
   const verifyResult = await verifyInteractionRequest(request, DISCORD_APP_PUBLIC_KEY!)
   if (!verifyResult.isValid || !verifyResult.interaction) {
-    return new NextResponse("Invalid request", { status: 401 })
+    return util.invalidRequestResponse()
   }
   let { interaction } = verifyResult
   let interactionModulePath = "handle_interactions"
@@ -84,7 +84,7 @@ export async function POST(request: Request) {
     const embed: APIEmbed = { title: "Interaction fail!", description: "Something went wrong \n", color: 0xff0000 }
 
     if (util.isDeveloper(interaction)) {
-      embed.description = `Only developer can see this error:\n ${codeBlock(error)}`
+      embed.description = `Only developer can see this error:\n ${codeBlock("json", error)}`
     }
     return NextResponse.json<APIInteractionResponse>({
       type: InteractionResponseType.ChannelMessageWithSource,
