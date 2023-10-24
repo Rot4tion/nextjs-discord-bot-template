@@ -27,12 +27,14 @@ channel
 - `/ping`
 - `/invite`
 - `/random_pic` (Option)
+- `/server` (Example using rest discordClient)
 - `/send_message` (Options, discordClient send message)
 - `/animal_action` (Autocomplete)
 - `/modal_example` (Modal submit)
 - `/components_example` (Example all components interaction)
 - `/private_command` (Example disable command, it not able to use and register to discord)
 - `/test` (Developer permission)
+- I will update with more example commands
 
 <!-- Or add NextBot to your own server with this link:
 https://discord.com/api/oauth2/authorize?client_id=837427503059435530&permissions=2147485696&scope=bot%20applications.commands -->
