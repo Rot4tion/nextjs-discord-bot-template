@@ -17,7 +17,6 @@ import {
 } from "discord-api-types/v10"
 
 export default {
-  isDeveloperOnly: true,
   description: "Show server info",
   execute: async (i: APIChatInputApplicationCommandInteraction) => {
     // Fetch data concurrently
