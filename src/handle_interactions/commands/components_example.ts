@@ -43,45 +43,51 @@ export default {
     }
 
     const custom_id = `${componentName}_example`
+    const components: APIMessageActionRowComponent[] = []
 
-    let exampleComponent: APIMessageActionRowComponent | undefined = undefined
     switch (componentType) {
       case ComponentType.Button:
-        exampleComponent = {
+        components.push({
           type: ComponentType.Button,
           label: "Confirm",
           style: ButtonStyle.Success,
           custom_id: "confirm_example",
-        }
+        })
+        components.push({
+          type: ComponentType.Button,
+          label: "Dev Only",
+          style: ButtonStyle.Danger,
+          custom_id: "permission_example",
+        })
         break
       case ComponentType.ChannelSelect:
-        exampleComponent = {
+        components.push({
           type: ComponentType.ChannelSelect,
           channel_types: [ChannelType.GuildText, ChannelType.DM, ChannelType.GuildVoice],
           custom_id,
-        }
+        })
         break
       case ComponentType.MentionableSelect:
-        exampleComponent = {
+        components.push({
           type: ComponentType.MentionableSelect,
           max_values: 10,
           min_values: 1,
           placeholder: "ComponentType.MentionableSelect",
           custom_id,
-        }
+        })
         break
       case ComponentType.RoleSelect:
-        exampleComponent = {
+        components.push({
           type: ComponentType.RoleSelect,
           max_values: 10,
           min_values: 1,
           placeholder: "ComponentType.RoleSelect",
           custom_id,
-        }
+        })
         break
 
       case ComponentType.SelectMenu || ComponentType.StringSelect:
-        exampleComponent = {
+        components.push({
           type: ComponentType.SelectMenu,
           options: [
             { label: "option1", value: "optionValue1" },
@@ -93,19 +99,19 @@ export default {
           // min_values: 1,
           placeholder: "StringSelect or SelectMenu",
           custom_id,
-        }
+        })
         break
       case ComponentType.UserSelect:
-        exampleComponent = {
+        components.push({
           type: ComponentType.UserSelect,
           max_values: 10,
           min_values: 1,
           placeholder: "ComponentType.UserSelect",
           custom_id,
-        }
+        })
         break
     }
-    if (!exampleComponent) {
+    if (!components) {
       return util.invalidRequestResponse()
     }
     const response: APIInteractionResponse = {
@@ -116,7 +122,7 @@ export default {
         components: [
           {
             type: ComponentType.ActionRow,
-            components: [exampleComponent],
+            components,
           },
         ],
         flags: MessageFlags.Ephemeral,
