@@ -19,7 +19,7 @@ import { NextResponse } from "next/server"
 
 /**
  * Use edge runtime which is faster, cheaper, and has no cold-boot.
- * If you want to use node runtime, you can change this to `node`, but you'll also have to polyfill fetch (and maybe other things).
+ * But you'll also have to polyfill fetch (and maybe other things).
  *
  * @see https://nextjs.org/docs/app/building-your-application/rendering/edge-and-nodejs-runtimes
  */
@@ -84,7 +84,7 @@ export async function POST(request: Request) {
     const embed: APIEmbed = { title: "Interaction fail!", description: "Something went wrong \n", color: 0xff0000 }
 
     if (util.isDeveloper(interaction)) {
-      embed.description = `Only developer can see this error:\n ${codeBlock("json", error)}`
+      embed.description = `Only developer can see this error:\n ${codeBlock(error)}`
     }
     return NextResponse.json<APIInteractionResponse>({
       type: InteractionResponseType.ChannelMessageWithSource,
