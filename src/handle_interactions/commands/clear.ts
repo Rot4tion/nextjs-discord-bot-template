@@ -60,7 +60,7 @@ export default {
         embeds: [
           {
             title: "Request to clear messages successfully",
-            description: `Deleting ${messagesNeedDelete.length} messages the process may take some time.`,
+            description: `Deleting ${messagesNeedDelete.length} messages the process may take some time because Discord API rate limit.`,
             color: 0x00ff00,
           },
         ],
