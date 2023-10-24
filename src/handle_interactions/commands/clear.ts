@@ -51,7 +51,6 @@ export default {
 
     messagesNeedDelete.forEach((message) => {
       discordClient.delete(Routes.channelMessage(message.channel_id, message.id))
-      console.log("🚀 ~ file: clear.ts:55 ~ messagesNeedDelete.forEach ~ id:", message.id)
     })
 
     return {
