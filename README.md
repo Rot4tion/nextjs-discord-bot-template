@@ -77,7 +77,7 @@ Node.js 18+ is required.
 ### Local Development
 
 Once you've completed the setup steps above, you're ready to run the bot locally!
-![Local development setup GIF](docs/ngrok_local_setup.gif)
+[![Nextjs Discord Bot Template Local Setup](https://img.youtube.com/vi/FabR8EZOMS0/0.jpg)](https://www.youtube.com/watch?v=FabR8EZOMS0)
 Discord can only send events to a public `https` address. You'll need an HTTP tunneling service like
 [ngrok](https://ngrok.com/) or [Cloudflare Tunnel](https://www.cloudflare.com/products/tunnel/) when developing locally.
 For this guide, I'll be using ngrok.
