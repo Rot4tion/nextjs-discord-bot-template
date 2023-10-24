@@ -25,8 +25,6 @@ export default {
       discordClient.get(Routes.guildMembers(i.guild_id as string)) as Promise<APIGuildMember[]>,
       discordClient.get(Routes.guildChannels(i.guild_id as string)) as Promise<APIGuildChannel<GuildChannelType>[]>,
     ])
-    console.log("🚀 ~ file: server.ts:29 ~ execute: ~ guild:", guild)
-
     // Handler data
     const guildChannelsSorted: Record<number, APIGuildChannel<GuildChannelType>[]> = {}
     guildChannels.forEach((channel) => {
