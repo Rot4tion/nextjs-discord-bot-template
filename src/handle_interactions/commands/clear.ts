@@ -14,8 +14,11 @@ import {
 } from "discord-api-types/v10"
 
 export default {
-  isDeveloperOnly: true,
-  //https://discord.com/developers/docs/topics/permissions
+  // Tool calculate the permissions integer last page
+  // https://discord.com/developers/applications/<your discord application id>/bot
+
+  // Document
+  // https://discord.com/developers/docs/topics/permissions
   default_member_permissions: "8240",
   description: "Cleans messages from a channel.",
   options: [
