@@ -26,6 +26,7 @@ channel
 ## Example command
 - `/ping`
 - `/invite`
+- `/clear`
 - `/random_pic` (Option)
 - `/server` (Example using rest discordClient)
 - `/send_message` (Options, discordClient send message)
