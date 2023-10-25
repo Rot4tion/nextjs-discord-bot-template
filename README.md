@@ -24,6 +24,7 @@ channel
 ## Example command
 - `/ping`
 - `/invite`
+- `/avatar`
 - `/clear` (Example default member permissions)
 - `/random_pic` (Option)
 - `/server` (Example using rest discordClient)
