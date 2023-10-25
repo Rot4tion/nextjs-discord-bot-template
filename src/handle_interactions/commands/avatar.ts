@@ -11,7 +11,7 @@ import {
 } from "discord-api-types/v10"
 
 function getUserAvatarUrl(user: APIUser | undefined) {
-  if (!user) return ""
+  if (!user || !user.avatar) return ""
   return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}?size=1024`
 }
 
@@ -27,16 +27,19 @@ export default {
     const displayAvatarUser = i.data.resolved?.users![avatarUserID]
     const displayAvatarUrl = displayAvatarUser ? getUserAvatarUrl(displayAvatarUser) : requestUserAvatar
 
-    const embed: APIEmbed = {
-      description: `${bold(hyperlink("Avatar Link", displayAvatarUrl))}`,
-      author: { icon_url: displayAvatarUrl, name: displayAvatarUser?.username as string },
-      image: { url: displayAvatarUrl },
-      footer: { icon_url: requestUserAvatar, text: `Requested by ${requestUser?.username}` },
-    }
-
+    const embed: APIEmbed = !displayAvatarUrl
+      ? { title: "User does not have an avatar", color: 0xff0000 }
+      : {
+          description: `${bold(hyperlink("Avatar Link", displayAvatarUrl))}`,
+          author: { icon_url: displayAvatarUrl, name: displayAvatarUser?.username as string },
+          image: { url: displayAvatarUrl },
+          footer: { icon_url: requestUserAvatar, text: `Requested by ${requestUser?.username}` },
+        }
     return {
       type: InteractionResponseType.ChannelMessageWithSource,
-      data: { embeds: [embed] },
+      data: {
+        embeds: [embed],
+      },
     }
   },
 } as CustomAPIApplicationCommand
