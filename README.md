@@ -4,7 +4,7 @@ Developed based on original source code: https://github.com/jzxhuang/nextjs-disc
 NextBot is a template for building and deploying a Discord bot with Next.js. It uses Discord interactions webhooks to receive and reply to commands.
 
 ![Demo GIF](docs/demo.gif)
-- Free & easy to deploy: Deploy to Vercel in seconds at no cost. No need to host a server or VM to run your bot! Don't
+- Free & easy to deploy: Deploy to [Vercel](https://vercel.com/) in seconds at no cost. No need to host a server or VM to run your bot! Don't
   bother with Heroku, EC2, etc.
 - Easy to extend: Since the bot is built on Next.js, you can easily build an accompanying webapp in the same repo.
 ## Features
